@@ -1,4 +1,4 @@
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 import React, { useCallback } from "react";
 import { Auth } from 'aws-amplify';
 import Head from "next/head";
@@ -51,19 +51,20 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
         </div>
       </div>
 
-      <AmplifyAuthenticator>
-        <div className="container-fluid">
-          <div className="row">
-            <Sidebar {...sidebarPropsVal} />
-
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-              <PageHeading pageHeading={props.title} username={props.username} />
-
-              {props.children}
-            </main>
+      <Authenticator>
+        {({ signOut, user }) => (
+          <div className="container-fluid">
+            <div className="row">
+              <Sidebar {...sidebarPropsVal} />
+              <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <PageHeading pageHeading={props.title} username={props.username} />
+                {props.children}
+              </main>
+            </div>
           </div>
-        </div>
-      </AmplifyAuthenticator>
+        )}
+      </Authenticator>
+        
 
     </div>
   )
